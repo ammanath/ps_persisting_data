@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -33,5 +32,17 @@ class SPSettings {
       color = Colors.amber.value;
     }
     return color;
+  }
+
+  Future setFontSize(String fontSize) {
+    return _sp.setString(fontSizeKey, fontSize);
+  }
+
+  String getFontSize() {
+    String fontSize = _sp.getString(fontSizeKey);
+    if (fontSize == null) {
+      fontSize = "Small";
+    }
+    return fontSize;
   }
 }

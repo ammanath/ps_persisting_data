@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../data/shared_prefs.dart';
-import '../data/shared_prefs.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -10,7 +9,9 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   int settingColor = 0xff1976d2;
+  String fontSizeValue = 'Medium';
   double fontSize = 16;
+
   List<int> colors = [
     0xFF455A64,
     0xFFFFC107,
@@ -27,6 +28,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     settings.init().then((value) {
       setState(() {
         settingColor = settings.getColor();
+        fontSizeValue = settings.getFontSize();
       });
     });
 
@@ -68,7 +70,31 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 child: ColorSquare(colors[4]),
               ),
             ],
-          )
+          ),
+          DropdownButton<String>(
+            value: fontSizeValue,
+            icon: const Icon(Icons.arrow_downward),
+            iconSize: 24,
+            elevation: 16,
+            style: const TextStyle(color: Colors.deepPurple),
+            underline: Container(
+              height: 2,
+              color: Colors.deepPurpleAccent,
+            ),
+            onChanged: (String newValue) {
+              setState(() {
+                fontSizeValue = newValue;
+                settings.setFontSize(fontSizeValue);
+              });
+            },
+            items: <String>['Small', 'Medium', 'Large', 'Extra Large']
+                .map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
         ],
       ),
     );
