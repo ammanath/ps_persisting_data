@@ -12,6 +12,7 @@ class SembastDb {
   Database _db;
   final store = intMapStoreFactory.store('passwords');
 
+  //Singleton - Private Constructor, static final instance, factory constructor
   SembastDb._privateConstructor();
 
   static final SembastDb _instance = SembastDb._privateConstructor();
